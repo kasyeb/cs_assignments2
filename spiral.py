@@ -14,11 +14,11 @@
 
 #  Date Last Modified: 2/1/2019
 
-# spiralFile = open('spiral.txt', 'r')
-# n = int((spiralFile.readline()))
-
 
 # def spiral(n):
+
+    spiralFile = open('spiral.txt', 'r')
+    n = int((spiralFile.readline()))
 
 #   matrix = [[0] * n for i in range(n)]
 
