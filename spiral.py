@@ -15,63 +15,61 @@
 #  Date Last Modified: 2/1/2019
 
 
-# def spiral(n):
+def spiral():
 
-    spiralFile = open('spiral.txt', 'r')
-    n = int((spiralFile.readline()))
+  spiralFile = open('spiral.txt', 'r')
+  n = int((spiralFile.readline()))
+  n = n + 2
 
-#   matrix = [[0] * n for i in range(n)]
+  matrix = [[0] * (n) for i in range(n)]
 
-#   rowStart = 0
-#   rowEnd = n - 1
-#   colStart = 0
-#   colEnd = n - 1
+  rowStart = 1
+  rowEnd = n - 2
+  colStart = 1
+  colEnd = n - 2
 
-#   beginNum = n * n
+  beginNum = (n - 2) * (n - 2)
 
-#   while (rowStart <= rowEnd and colStart <= colEnd):
+  while (rowStart <= rowEnd and colStart <= colEnd):
 
-#     for col in range(colStart, colEnd + 1):
-#       matrix[rowStart][col] = beginNum
-#       beginNum -= 1
+    for col in range(colStart, colEnd + 1):
+      matrix[rowStart][col] = beginNum
+      beginNum -= 1
 
-#     rowStart += 1
+    rowStart += 1
 
-#     for row in range(rowStart, rowEnd + 1):
-#       matrix[row][colEnd] = beginNum
-#       beginNum -= 1
+    for row in range(rowStart, rowEnd + 1):
+      matrix[row][colEnd] = beginNum
+      beginNum -= 1
 
-#     colEnd -= 1
+    colEnd -= 1
 
-#     for col in range(colEnd, colStart - 1, -1):
-#       matrix[rowEnd][col] = beginNum
-#       beginNum -= 1
+    for col in range(colEnd, colStart - 1, -1):
+      matrix[rowEnd][col] = beginNum
+      beginNum -= 1
 
-#     rowEnd -= 1
+    rowEnd -= 1
 
-#     for row in range(rowEnd, rowStart - 1, -1):
-#       matrix[row][colStart] = beginNum
-#       beginNum -= 1
+    for row in range(rowEnd, rowStart - 1, -1):
+      matrix[row][colStart] = beginNum
+      beginNum -= 1
 
-#     colStart += 1
+    colStart += 1
 
-#   return matrix
+  return matrix
 
 
-# spiral2 = spiral(10)
+matrix = spiral()
 
-# for row in spiral2:
-#   print(row)
+for row in matrix:
+  print(row)
 
-matrix = [[1, 2, 3, 4, 5],
-          [6, 7, 8, 9, 10],
-          [11, 12, 13, 14, 15]]
 
 count = 0
 
 for i in range(len(matrix)):
   for j in range(len(matrix[0])):
-    if matrix[i][j] == 9:
+    if matrix[i][j] == :
       count += matrix[i][j + 1]
       count += matrix[i][j - 1]
       count += matrix[i - 1][j]
