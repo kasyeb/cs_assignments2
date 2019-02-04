@@ -86,6 +86,7 @@ def sumNum(matrix, n):
 
 # main calls the function and reads the text file
 def main():
+    
     # opening text file to be read
     inSpiral = open('spiral.txt', 'r')
     n = int((inSpiral.readline()))
