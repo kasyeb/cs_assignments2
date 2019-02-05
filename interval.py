@@ -22,16 +22,14 @@ def fileOpen():
 
   intFile = open('intervals5.txt', 'r')
   for line in intFile:
-    if line != ' ':
+    if line != '':
       line.strip('\n')
-      line.strip(' ')
-      list1.append((line.split()))
+      num1 = int(line.split(' ')[0])
+      num2 = int(line.split(' ')[1])
+      tup = (num1, num2)
+      list1.append(tup)
 
-  list1 = [list(i) for i in list1]
-  list1 = [tuple(i) for i in list1]
-  finalList = [tuple(map(int, pair)) for pair in list1]
-
-  return finalList
+  return list1
 
 # function makes the overalapping intervals
 def intervals(fileOpen):
@@ -40,7 +38,7 @@ def intervals(fileOpen):
   fileOpen = sorted(fileOpen, reverse=False)
   finalList = []
 
-  #setting variables to be used in algorithm
+  # setting variables to be used in algorithm
   first = fileOpen[0]
   start = first[0]
   end = first[1]
@@ -51,6 +49,7 @@ def intervals(fileOpen):
 
       # finds max of neighboring tuples
       end = max(end, interval[1])
+
     else:
 
       # updates overlapping tuple to include the neighboring values
@@ -61,27 +60,14 @@ def intervals(fileOpen):
   # appends tuple if doesn't overalap with the previous tuple
   finalList.append(tuple([start, end]))
 
-  # return finalList
+  # prints tuples in line
   for interval in finalList:
     print(interval)
-
-
-def sortSize(intervals):
-  extraCreditList = [intervals[0]]
-  for interval in intervals[1:]:
-    firstNum = abs(extraCreditList[0][0] - extraCreditList[0][1])
-    if abs(interval[0] - interval[1]) > firstNum:
-      extraCreditList.append(interval)
-    else:
-      extraCreditList.insert(0, interval)
-
-  print(extraCreditList)
 
 
 def main():
   file = fileOpen()
   intervals(file)
-  # sortSize(finalFile)
 
 
 main()
