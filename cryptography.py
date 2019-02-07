@@ -48,6 +48,7 @@ for row in decrypt_1:
 	emptyStr += rowStr[::-1]
 print(emptyStr[::-1])
 
+# Matrix maker
 def matrixMaker(str):
   if len(str) == 1:
     return str
@@ -79,15 +80,18 @@ def matrixMaker(str):
     matrix = [[None] * 10 for i in range(10)]
     return matrix
 
-matrix2 = [[''] * 4 for i in range(4)]
-word = 'gonewiththewind'
+# populating made matrix with letters from words
+matrix2 = [[None] * 4 for i in range(4)]
 
+word = 'thecontestisover'
+word1 = 'gonewiththewind'
+
+k = 0
 for i in range(len(matrix2)):
-  for j in range(len(matrix2)):
-    matrix2[i][j] == word[0]
+	for j in range(len(matrix2)):
+		matrix2[i][j] = word[k] # works for words with length of a square number, else I get index error
+		k +=1 
 
 print(matrix2)
 
-matrix1 = [[1,2,3],
-          [4,5,6],
-          [7,8,9]]
+
