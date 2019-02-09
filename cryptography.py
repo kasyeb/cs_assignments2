@@ -1,10 +1,9 @@
 
-
+# function to encrypt string
 def encrypt(strng):
 
-    if len(strng) == 1:
-        return str
-    elif len(strng) <= 4:
+    # makes empty matrix based on the length of the string
+    if len(strng) <= 4:
         matrix = [[None] * 2 for i in range(2)]
 
     elif len(strng) <= 9:
@@ -31,6 +30,7 @@ def encrypt(strng):
     elif len(strng) <= 100:
         matrix = [[None] * 10 for i in range(10)]
 
+    # iterates through the matrix and fills it with strng letters and *
     k = 0
     for i in range(len(matrix)):
         for j in range(len(matrix)):
@@ -40,8 +40,10 @@ def encrypt(strng):
             else:
                 matrix[i][j] = '*'
 
+    # transposes matrix for encryption
     finalMatrix = list(zip(*matrix))
 
+    # starts off with empty string and reads matrrix items and builds string
     encryptStr = ''
     for row in finalMatrix:
         rowStr = ''
@@ -50,16 +52,13 @@ def encrypt(strng):
                 rowStr += item
         encryptStr += rowStr[::-1]
 
-    print(encryptStr)
+    # returns encrypted word
+    return(encryptStr)
 
-
-encrypt('thecontestisover')
 
 def decrypt(strng):
 
-    if len(strng) == 1:
-        return str
-    elif len(strng) <= 4:
+    if len(strng) <= 4:
         matrix = [[None] * 2 for i in range(2)]
 
     elif len(strng) <= 9:
@@ -93,7 +92,7 @@ def decrypt(strng):
         for j in range(len(matrix)):
             if k < len(strng):
                 matrix[i][j] = strng[k]
-                k +=1
+                k += 1
             else:
                 matrix[i][j] = '*'
 
@@ -109,21 +108,28 @@ def decrypt(strng):
 
     print(decryptStr[::-1])
 
-decrypt('itwgnhiodetnwhe')
+
+def main():
+
+    print('Encryption:')
+    fileEncrypt = open('encrypt-2.txt', 'r')
+    n = int((fileEncrypt.readline()))
+
+    for line in fileEncrypt:
+        if len(str(line.strip())) < 2:
+            print(str(line.strip()))
+        else:
+            print(encrypt(str(line.strip())))
+
+    # print('Decryption:')
+    # fileDecrypt = open('decrypt.txt', 'r')
+    # n = int((fileDecrypt.readline()))
+
+    # for line in fileDecrypt:
+    #     if len(str(line.strip())) < 2:
+    #         print(str(line.strip()))
+    #     else:
+    #         print(decrypt(str(line.strip())))
 
 
-
-# def decrypt(strng):
-#   #If len(str) < 2: return strng?
-#   pass
-
-# def main():
-#   fileEncrypt = open('encrypt.txt', 'r')
-#   n = int((fileEncrypt.readline()))
-#   for i in range(n):
-#       print(encrypt())
-
-#   fileDecrypt = open('decrypt.txt', 'r')
-#   m = int((fileDecrypt.readline()))
-#   for i in range(m):
-#       print(decrypt())
+main()
