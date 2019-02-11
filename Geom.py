@@ -52,10 +52,9 @@ class Circle():
     return (((int(self.radius) - int(c.radius))^2) <= ((int(self.center.x) - int(c.center.x))^2) <=((int(self.radius) + int(c.radius))^2))
 
   def circle_circumscribe(self, r):
-    pass
-    # take half the endpoints of a diagonal of the rectangle
-    # sqrt(a^2+b^2)/2 == RADIUS OF CIRCLE
-    # NEED CENTER OF CIRCLE TOO
+    circRadius = math.sqrt(((r.length())^2) + ((r.width())^2)) * (0.5)
+    return circRadius
+    # circCenter = 
 
   def __str__(self):
     return 'Radius ' + str(self.radius) + ', Center: ' + str(self.center)
@@ -87,13 +86,18 @@ class Rectangle():
     return (int(self.length()) * int(self.width()))
 
   def point_inside(self, p):
-    return ((self.ul.x < self.p.x < self.lr.x) and (self.lr.y < self.p.y < self.ul.y))
+    return ((self.ul.x < p.x < self.lr.x) and (self.lr.y < p.y < self.ul.y))
 
-  def rectangle_inside(self,p):
-    pass
+  def rectangle_inside(self,r):
+    if ((self.ul.x < r.ul.x < self.lr.x) and (self.lr.y < r.lr.y < self.ul.y)):
+      return True
+    elif ((self.ul.x == r.ul.x) and (self.ul.y == r.ul.y) and (self.lr.x == r.lr.x) and (self.lr.y == r.lr.y)):
+      return False
+    else:
+      return False
 
   def rectangle_overlap(self, r):
-    pass
+    return ((self.ul.x < r.lr.x) and (r.ul.x < self.lr.x) and (self.ul.y < r.ul.y) and (r.ul.y < self.ul.y))
 
   def rectangle_circumscribe(self, c):
     pass
@@ -105,6 +109,8 @@ class Rectangle():
     return ((self.width() == other.width()) and (self.length() == other.length()))
 
 
-c1 = Circle(radius=1.0, x=3.0, y = 2.0)
-d1 = Circle(radius=5.0, x=-2.0,y=-3.0)
-print(c1.circle_overlap(d1))
+
+# G = Rectangle(ul_x=2.0, ul_y=6.0,lr_x=8.0,lr_y=4.0)
+# H = Rectangle(ul_x=-3.0, ul_y=2.0,lr_x=4.0,lr_y=-3.0)
+
+# print(G.rectangle_inside(H))
