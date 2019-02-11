@@ -108,9 +108,62 @@ class Rectangle():
   def __eq__(self, other):
     return ((self.width() == other.width()) and (self.length() == other.length()))
 
+def main():
+  file = open('geom.txt', 'r')
+  line1 = file.readline()
+  px = float(line1.split(' ')[0])
+  py = float(line1.split( ' ')[1])
+  P = Point(px,py)
+  print(P)
+
+  line2 = file.readline()
+  qx = float(line2.split(' ')[0])
+  qy = float(line2.split(' ')[1])
+  Q = Point(qx,qy)
+  print(Q)
+
+  print('Coordinates of P: ')
+  print('Coordinates of Q: ')
+  print('Distance between P and Q: ')
+
+  line3 = file.readline()
+  cr = float(line3.split(' ')[0])
+  cx = float(line3.split(' ')[1])
+  cy = float(line3.split(' ')[2])
+  C = Circle(radius=cr, x=cx, y=cy)
+  print(C)
+
+  line4 = file.readline()
+  dr = float(line4.split(' ')[0])
+  dx = float(line4.split(' ')[1])
+  dy = float(line4.split(' ')[2])
+  D = Circle(radius = dr, x=dx, y=dy)
+  print(D)
+
+  print('Circle C: ')
+  print('Cirlce D: ')
+  print('Circumference of C: ')
+  print('Area of D: ')
+  
+
+  line5 = file.readline()
+  gux = float(line5.split(' ')[0])
+  guy = float(line5.split(' ')[1])
+  glx = float(line5.split(' ')[2])
+  gly = float(line5.split(' ')[3])
+  G = Rectangle(ul_x=gux, ul_y=guy, lr_x=glx, lr_y=gly)
+  print(G)
+
+  line6 = file.readline()
+  hux = float(line6.split(' ')[0])
+  huy = float(line6.split(' ')[1])
+  hlx = float(line6.split(' ')[2])
+  hly = float(line6.split(' ')[3])
+  H = Rectangle(ul_x=hux, ul_y=huy, lr_x=hlx, lr_y=hly)
+  print(H)
 
 
-# G = Rectangle(ul_x=2.0, ul_y=6.0,lr_x=8.0,lr_y=4.0)
-# H = Rectangle(ul_x=-3.0, ul_y=2.0,lr_x=4.0,lr_y=-3.0)
+  
 
-# print(G.rectangle_inside(H))
+if __name__ == "__main__":
+  main()
