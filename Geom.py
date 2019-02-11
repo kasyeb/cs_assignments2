@@ -12,86 +12,60 @@
 
 #  Date Created: 2/10/2019
 
-#  Date Last Modified:
+#  Date Last Modified: 2/11/2019
 
 import math
 
 
-class Point (object):
-  # constructor
-  # x and y are floats
+class Point():
   def __init__(self, x=0, y=0):
     self.x = x
     self.y = y
 
-  # get distance
-  # other is a Point object
   def dist(self, other):
     return math.hypot(self.x - other.x, self.y - other.y)
 
-  # get a string representation of a Point object
-  # takes no arguments
-  # returns a string
   def __str__(self):
-    return '(' + str(self.x) + ", " + str(self.y) + ")"
+    return '(' + str(self.x) + ', ' + str(self.y) + ')'
 
-  # test for equality
-  # other is a Point object
-  # returns a Boolean
   def __eq__(self, other):
     tol = 1.0e-16
     return ((abs(self.x - other.x) < tol) and (abs(self.y - other.y) < tol))
 
 
-class Circle (object):
-  # constructor
-  # x, y, and radius are floats
+class Circle():
   def __init__(self, radius=1, x=0, y=0):
     self.radius = radius
     self.center = Point(x, y)
 
-  # compute cirumference
   def circumference(self):
     return 2.0 * math.pi * self.radius
 
-  # compute area
-  def area(self):
-    return math.pi * self.radius * self.radius
-
-  # determine if point is strictly inside circle
   def point_inside(self, p):
-    return (self.center.dist(p) < self.radius)
+    return(self.center.dist(p) < self.radius)
 
-  # determine if a circle is strictly inside this circle
   def circle_inside(self, c):
     distance = self.center.dist(c.center)
-    return (distance + c.radius) < self.radius
+    return(distance + c.radius) < self.radius
 
-  # determine if a circle c overlaps this circle (non-zero area of overlap)
-  # but neither is completely inside the other
-  # the only argument c is a Circle object
-  # returns a boolean
   def circle_overlap(self, c):
+    return (((int(self.radius) - int(c.radius))^2) <= ((int(self.center.x) - int(c.center.x))^2) <=((int(self.radius) + int(c.radius))^2))
 
-    # determine the smallest circle that circumscribes a rectangle
-    # the circle goes through all the vertices of the rectangle
-    # the only argument, r, is a rectangle object
   def circle_circumscribe(self, r):
+    pass
+    # take half the endpoints of a diagonal of the rectangle
+    # sqrt(a^2+b^2)/2 == RADIUS OF CIRCLE
+    # NEED CENTER OF CIRCLE TOO
 
-    # string representation of a circle
-    # takes no arguments and returns a string
   def __str__(self):
-    return "Radius: " + str(self.radius) + ", Center: " + str(self.center)
+    return 'Radius ' + str(self.radius) + ', Center: ' + str(self.center)
 
-  # test for equality of radius
-  # the only argument, other, is a circle
-  # returns a boolean
   def __eq__(self, other):
     tol = 1.0e-16
+    return ((abs(self.radius - other.radius) < tol) and (abs(self.radius - other.radius) < tol))
 
 
-class Rectangle (object):
-  # constructor
+class Rectangle():
   def __init__(self, ul_x=0, ul_y=1, lr_x=1, lr_y=0):
     if ((ul_x < lr_x) and (ul_y > lr_y)):
       self.ul = Point(ul_x, ul_y)
@@ -100,45 +74,37 @@ class Rectangle (object):
       self.ul = Point(0, 1)
       self.lr = Point(1, 0)
 
-  # determine length of Rectangle (distance along the x axis)
-  # takes no arguments, returns a float
   def length(self):
+    return abs(int(self.lr.x) - int(self.ul.x))
 
-    # determine width of Rectangle (distance along the y axis)
-    # takes no arguments, returns a float
   def width(self):
+    return abs(int(self.ul.y) - int(self.lr.y))
 
-    # determine the perimeter
-    # takes no arguments, returns a float
   def perimeter(self):
+    return (2 * self.length()) + (2 * self.width())
 
-    # determine the area
-    # takes no arguments, returns a float
   def area(self):
+    return (int(self.length()) * int(self.width()))
 
-    # determine if a point is strictly inside the Rectangle
-    # takes a point object p as an argument, returns a boolean
-  def point_inside(self, p)
+  def point_inside(self, p):
+    return ((self.ul.x < self.p.x < self.lr.x) and (self.lr.y < self.p.y < self.ul.y))
 
-  # determine if another Rectangle is strictly inside this Rectangle
-  # takes a rectangle object r as an argument, returns a boolean
-  # should return False if self and r are equal
-  def rectangle_inside(self, r):
+  def rectangle_inside(self,p):
+    pass
 
-    # determine if two Rectangles overlap (non-zero area of overlap)
-    # takes a rectangle object r as an argument returns a boolean
   def rectangle_overlap(self, r):
+    pass
 
-    # determine the smallest rectangle that circumscribes a circle
-    # sides of the rectangle are tangents to circle c
-    # takes a circle object c as input and returns a rectangle object
   def rectangle_circumscribe(self, c):
+    pass
 
-    # give string representation of a rectangle
-    # takes no arguments, returns a string
   def __str__(self):
-    return "UL: " + str(self.ul) + ", LR: " + str(self.lr)
+    return 'UL: ' + str(self.ul) + ', LR: ' + str(self.lr)
 
-  # determine if two rectangles have the same length and width
-  # takes a rectangle other as argument and returns a boolean
   def __eq__(self, other):
+    return ((self.width() == other.width()) and (self.length() == other.length()))
+
+
+c1 = Circle(radius=1.0, x=3.0, y = 2.0)
+d1 = Circle(radius=5.0, x=-2.0,y=-3.0)
+print(c1.circle_overlap(d1))
