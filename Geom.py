@@ -16,6 +16,8 @@
 
 import math
 
+# Point class
+
 
 class Point():
   def __init__(self, x=0, y=0):
@@ -31,6 +33,8 @@ class Point():
   def __eq__(self, other):
     tol = 1.0e-16
     return ((abs(self.x - other.x) < tol) and (abs(self.y - other.y) < tol))
+
+# Circle class
 
 
 class Circle():
@@ -55,9 +59,7 @@ class Circle():
     return (((int(self.radius) - int(c.radius)) ^ 2) <= ((int(self.center.x) - int(c.center.x)) ^ 2) <= ((int(self.radius) + int(c.radius)) ^ 2))
 
   def circle_circumscribe(self, r):
-    circRadius = math.sqrt(((r.length()) ^ 2) + ((r.width()) ^ 2)) * (0.5)
-    return circRadius
-    # circCenter =
+    return math.sqrt(((r.length()) * r.length()) + ((r.width()) * r.width())) * (0.5)
 
   def __str__(self):
     return 'Radius ' + str(self.radius) + ', Center: ' + str(self.center)
@@ -65,6 +67,8 @@ class Circle():
   def __eq__(self, other):
     tol = 1.0e-16
     return ((abs(self.radius - other.radius) < tol) and (abs(self.radius - other.radius) < tol))
+
+# Rectangle class
 
 
 class Rectangle():
@@ -91,6 +95,12 @@ class Rectangle():
   def point_inside(self, p):
     return ((self.ul.x < p.x < self.lr.x) and (self.lr.y < p.y < self.ul.y))
 
+  def circle_circumscribe1(self):
+    return (((self.ul.x) + (self.lr.x)) / 2.0)
+
+  def circle_circumscribe2(self):
+    return (((self.ul.y) + (self.lr.y)) / 2.0)
+
   def rectangle_inside(self, r):
     if ((self.ul.x < r.ul.x < self.lr.x) and (self.lr.y < r.lr.y < self.ul.y)):
       return True
@@ -101,6 +111,11 @@ class Rectangle():
 
   def rectangle_overlap(self, r):
     return ((self.ul.x < r.lr.x) and (r.ul.x < self.lr.x) and (self.ul.y < r.ul.y) and (r.ul.y < self.ul.y))
+    if ((self.ul.x > r.lr.x) or (r.ul.x > self.lr.x)):
+      return False
+    if ((self.ul.y < r.lr.y) or (r.ul.x < self.lr.y)):
+      return False
+    return True
 
   def rectangle_circumscribe(self, c):
     pass
@@ -111,14 +126,18 @@ class Rectangle():
   def __eq__(self, other):
     return ((self.width() == other.width()) and (self.length() == other.length()))
 
+# Main
+
 
 def main():
+        # opens file and assigns to points
   file = open('geom-2.txt', 'r')
   line1 = file.readline()
   px = float(line1.split(' ')[0])
   py = float(line1.split(' ')[1])
   P = Point(px, py)
 
+  # reads second line
   line2 = file.readline()
   qx = float(line2.split(' ')[0])
   qy = float(line2.split(' ')[1])
@@ -128,12 +147,14 @@ def main():
   print('Coordinates of Q:', Q)
   print('Distance between P and Q:', P.dist(Q))
 
+  # reads third line
   line3 = file.readline()
   cr = float(line3.split(' ')[0])
   cx = float(line3.split(' ')[1])
   cy = float(line3.split(' ')[2])
   C = Circle(radius=cr, x=cx, y=cy)
 
+  # reads fourh line
   line4 = file.readline()
   dr = float(line4.split(' ')[0])
   dx = float(line4.split(' ')[1])
@@ -142,8 +163,8 @@ def main():
 
   print('Circle C:', C)
   print('Cirlce D:', D)
-  print('Circumference of C:', str(round(C.circumference(), 2)))
-  print('Area of D:', str(round(D.area(), 2)))
+  print('Circumference of C:', C.circumference())
+  print('Area of D:', D.area())
 
   if C.point_inside(P) == True:
     print('P is inside C')
@@ -165,6 +186,7 @@ def main():
   else:
     print('C is not equal to D')
 
+  # reads the fifth line
   line5 = file.readline()
   gux = float(line5.split(' ')[0])
   guy = float(line5.split(' ')[1])
@@ -172,6 +194,7 @@ def main():
   gly = float(line5.split(' ')[3])
   G = Rectangle(ul_x=gux, ul_y=guy, lr_x=glx, lr_y=gly)
 
+  # reads the sixth line
   line6 = file.readline()
   hux = float(line6.split(' ')[0])
   huy = float(line6.split(' ')[1])
@@ -185,8 +208,11 @@ def main():
   print('Length of G:', G.length())
   print('Width of H:', H.width())
 
+  print('Perimeter of G:', G.perimeter())
+
   print('Area of H:', H.area())
 
+  # if statements for is/is not statements
   if G.point_inside(P) == True:
     print('P is inside G')
   else:
@@ -202,15 +228,14 @@ def main():
   else:
     print('G does not overlap H')
 
-  # 2 circumscribe function shit
+  print('Circle that circumscribes G: Radius: ' + str(C.circle_circumscribe(G)) + ', ' + 'Center: (' + str(round(G.circle_circumscribe1(), 2)) + ', ' + str(round(G.circle_circumscribe2(), 2)) + ')')
 
   if G == H:
     print('Rectangle G is equal to H')
   else:
     print('Rectangle G is not equal to H')
 
-  G.circle_circumscribe()
 
-
+# calls main
 if __name__ == "__main__":
   main()
