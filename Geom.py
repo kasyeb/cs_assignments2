@@ -209,6 +209,8 @@ def main():
   else:
     print('Rectangle G is not equal to H')
 
+  G.circle_circumscribe()
+
 
 if __name__ == "__main__":
   main()
