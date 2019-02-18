@@ -272,11 +272,12 @@ class Poker():
 
     else:
       return 0, ''
-      
+
 
   # checks if hand is a two pair
   def is_two_pair(self, hand):
-    pass
+    
+
 
   # checks if hand is a one pair
   def is_one_pair(self, hand):
@@ -298,7 +299,11 @@ class Poker():
 
   # checks if hand only has a high card
   def is_high_card(self, hand):
-    pass
+    points = 1 * 15 ** 5 + (hand[0].rank) * 15 * 4 + (hand[1].rank) * 15 ** 3
+    points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
+    points = points + (hand[4].rank)
+
+    return points, 'High Card'
 
 # main calls functions
 def main():
