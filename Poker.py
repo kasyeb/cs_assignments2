@@ -122,83 +122,87 @@ class Poker():
     hand_points = []
 
     for i in range(len(self.all_hands)):
-      if ((self.is_royal(self.all_hands[i])) != 0):
+      if ((self.is_royal(self.all_hands[i]))[0] != 0):
         hand_type.append(10)
         hand_points.append(self.is_royal(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Royal Flush')
 
-      elif ((self.is_straight_flush(self.all_hands[i])) != 0):
+      elif ((self.is_straight_flush(self.all_hands[i]))[0] != 0):
         hand_type.append(9)
         hand_points.append(self.is_straight_flush(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Straight Flush')
 
-      elif ((self.is_four_kind(self.all_hands[i])) != 0):
+      elif ((self.is_four_kind(self.all_hands[i]))[0] != 0):
         hand_type.append(8)
         hand_points.append(self.is_four_kind(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Four of a Kind')
 
-      elif ((self.is_full_house(self.all_hands[i])) != 0):
+      elif ((self.is_full_house(self.all_hands[i]))[0] != 0):
         hand_type.append(7)
         hand_points.append(self.is_full_house(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Full House')
 
-      elif (self.is_flush(self.all_hands[i])) != 0:
+      elif ((self.is_flush(self.all_hands[i]))[0] != 0):
         hand_type.append(6)
         hand_points.append(self.is_flush(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Flush')
 
-      elif ((self.is_straight(self.all_hands[i])) != 0):
+      elif ((self.is_straight(self.all_hands[i]))[0] != 0):
         hand_type.append(5)
         hand_points.append(self.is_straight(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Straight')
 
-      elif ((self.is_three_kind(self.all_hands[i])) != 0):
+      elif ((self.is_three_kind(self.all_hands[i]))[0] != 0):
         hand_type.append(4)
         hand_points.append(self.is_three_kind(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Three of a Kind')
 
-      elif ((self.is_two_pair(self.all_hands[i])) != 0):
+      elif ((self.is_two_pair(self.all_hands[i]))[0] != 0):
         hand_type.append(3)
         hand_points.append(self.is_two_pair(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': Two Pair')
 
-      elif ((self.is_one_pair(self.all_hands[i])) != 0):
+      elif ((self.is_one_pair(self.all_hands[i]))[0] != 0):
         hand_type.append(2)
         hand_points.append(self.is_one_pair(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': One Pair')
 
-      elif ((self.is_high_card(self.all_hands[i])) != 0):
+      elif ((self.is_high_card(self.all_hands[i]))[0] != 0):
         hand_type.append(1)
         hand_points.append(self.is_high_card(self.all_hands[i]))
         print('Player ' + str(i + 1) + ': High Card')
 
     # determine winner
-      allHandsPoints = []
+    allHandsPoints = []
 
-      for i in range(len(hand_points)):
-        if (hand_type[i]) == max(hand_type):
-          allHandsPoints.append(i)
+    maxTuplePoints = 0
+    for i in range(len(hand_points)):
+      if (hand_points[i][0]) > maxTuplePoints:
+        maxTuplePoints = (hand_points[i][0])
 
-      i = 0
-      if len(allHandsPoints) == 1:
-        print()
-        print('Player ' + str(allHandsPoints[0] + 1) + ' wins.')
+    for i in range(len(hand_points)):
+      if (hand_type[i]) == max(hand_type):
+        allHandsPoints.append(i)
 
-      else:
-        while i < len(allHandsPoints):
-          if (hand_points[allHandsPoints[i]] == max(hand_type)):
-            print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
-            hand_points[allHandsPoints[i]] = 0
-            i = 0
+    i = 0
+    print(hand_points)
+    if len(allHandsPoints) == 1:
+      print()
+      print('Player ' + str(allHandsPoints[0] + 1) + ' wins.')
 
-          elif (len(allHandsPoints) == 1):
-            print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
-            return
+    else:
+      while i < len(allHandsPoints):
+        if (hand_points[allHandsPoints[i]]) == (maxTuplePoints):
+          print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
+          hand_points[allHandsPoints[i]] = 0
+          i = 0
 
-          else:
-            i += 1
+        elif (len(allHandsPoints) == 1):
+          print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
+          break
 
-      return
+        else:
+          i += 1
 
   # checks if hand is royal flush
   def is_royal(self, hand):
@@ -207,14 +211,14 @@ class Poker():
       same_suit = same_suit and (hand[i].suit == hand[i + 1].suit)
 
     if (not same_suit):
-      return 0, ''
+      return (0, '')
 
     rank_order = True
     for i in range(len(hand)):
       rank_order = rank_order and (hand[i].rank == 14 - i)
 
     if (not rank_order):
-      return 0, ''
+      return (0, '')
 
     else:
       # calculates total points
@@ -222,7 +226,7 @@ class Poker():
       points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-    return points, 'Royal Flush'
+    return (points, 'Royal Flush')
 
   # checks if hand straight flush
   def is_straight_flush(self, hand):
@@ -231,21 +235,21 @@ class Poker():
       same_suit = same_suit and (hand[i].suit == hand[i + 1].suit)
 
     if (same_suit == False):
-      return 0, ''
+      return (0, '')
 
     rank_order = True
     for i in range(len(hand)):
       rank_order = rank_order and (hand[i].rank == hand[i + 1].rank)
 
     if (rank_order == False):
-      return 0, ''
+      return (0, '')
 
     else:
       points = 9 * 15 ** 5 + (hand[0].rank) * 15 ** 4 + (hand[1].rank) * 15 ** 3
       points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-    return points, 'Straight Flush'
+    return (points, 'Straight Flush')
 
   # checks if hand is 4 of a kind
   def is_four_kind(self, hand):
@@ -257,7 +261,7 @@ class Poker():
       four_cards = True
 
     if four_cards == False:
-      return 0, ''
+      return (0, '')
 
     if ((hand[0].rank) == (hand[1].rank) == (hand[2].rank) == (hand[3].rank)):
       points = 8 * 15 ** 5 + (hand[0].rank) * 15 ** 4 + (hand[1].rank) * 15 ** 3
@@ -269,7 +273,7 @@ class Poker():
       points = points + (hand[3].rank) * 15 ** 2 + (hand[4].rank) * 15 ** 1
       points = points + (hand[1].rank)
 
-    return points, 'Four of a Kind'
+    return (points, 'Four of a Kind')
 
   # checks if hand is a full house CHECK AGAIN TO MAKE SURE IT WORKS LOGIC
   def is_full_house(self, hand):
@@ -279,7 +283,7 @@ class Poker():
 
     else:
       full_house = False
-      return 0, ''
+      return (0, '')
 
     if full_house == True:
       if ((hand[0].rank) == (hand[1].rank) == (hand[2].rank) and (hand[3].rank) == (hand[4].rank)):
@@ -287,31 +291,31 @@ class Poker():
         points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
         points = points + (hand[4].rank)
 
-        return points, 'Full House'
+        return (points, 'Full House')
 
       elif ((hand[2].rank) == (hand[3].rank) == (hand[4].rank) and (hand[0].rank) == (hand[1].rank)):
         points = 7 * 15 ** 5 + (hand[2].rank) * 15 ** 4 + (hand[1].rank) * 15 ** 3
         points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
         points = points + (hand[4].rank)
 
-        return points, 'Full House'
+        return (points, 'Full House')
 
   # checks if hand is a flush
   def is_flush(self, hand):
-    same_suit = False
+    same_suit = True
     for i in range(len(hand) - 1):
-      if ((hand[i].suit) == (hand[i + 1].suit)):
-        same_suit = True
+      if ((hand[i].suit) != (hand[i + 1].suit)):
+        same_suit = False
 
     if same_suit == False:
-      return 0, ''
+      return (0, '')
 
     else:
       points = 6 * 15 ** 5 + (hand[0].rank) * 15 ** 4 + (hand[1].rank) * 15 ** 3
       points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-      return points, 'Straight Flush'
+      return (points, 'Flush')
 
   # checks if hand a straight
   def is_straight(self, hand):
@@ -325,10 +329,10 @@ class Poker():
       points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-      return points, 'Straight'
+      return (points, 'Straight')
 
     else:
-      return 0, ''
+      return (0, '')
 
   # checks if hard is three of a kind
   def is_three_kind(self, hand):
@@ -337,21 +341,21 @@ class Poker():
       points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-      return points, 'Three of a kind'
+      return (points, 'Three of a kind')
 
     elif ((hand[1].rank) == (hand[3].rank)):
       points = 4 * 15 ** 5 + (hand[1].rank) * 15 ** 4 + (hand[2].rank) * 15 ** 3
       points = points + (hand[3].rank) * 15 ** 2 + (hand[0].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-      return points, 'Three of a kind'
+      return (points, 'Three of a kind')
 
     elif ((hand[2].rank) == (hand[4].rank)):
       points = 4 * 15 ** 5 + (hand[2].rank) * 15 ** 4 + (hand[3].rank) * 15 ** 3
       points = points + (hand[4].rank) * 15 ** 2 + (hand[0].rank) * 15 ** 1
       points = points + (hand[1].rank)
 
-      return points, 'Three of a kind'
+      return (points, 'Three of a kind')
 
     else:
       return 0, ''
@@ -366,33 +370,34 @@ class Poker():
       else:
         sameRank.add(hand[i].rank)
 
-    if len(sameRank) == 5:
-      return 0, ''
-    else:
+    if len(sameRank) == 3:
       points = 3 * 15 ** 5 + (hand[0].rank) * 15 ** 4 + (hand[1].rank) * 15 ** 3
       points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-    return points, 'Two Pair'
+      return (points, 'Two Pair')
+
+    else:
+      return 0, ''
 
    # checks if hand is a one pair
   def is_one_pair(self, hand):
-    one_pair = False
-    for i in range(len(hand) - 1):
-      if (hand[i].rank == hand[i + 1].rank):
-        one_pair = True
-        break
+    sameRank = set()
+    for i in range(len(hand)):
+      if (hand[i].rank) in sameRank:
+        continue
 
-    if (one_pair == False):
+      else:
+        sameRank.add(hand[i].rank)
+
+    if len(sameRank) == 5:
       return 0, ''
-
     else:
-      # calculates total points
-      points = 2 * 15 ** 5 + (hand[0].rank) * 15 * 4 + (hand[1].rank) * 15 ** 3
+      points = 2 * 15 ** 5 + (hand[0].rank) * 15 ** 4 + (hand[1].rank) * 15 ** 3
       points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
       points = points + (hand[4].rank)
 
-      return points, 'One Pair'
+    return (points, 'One Pair')
 
   # checks if hand only has a high card
   def is_high_card(self, hand):
@@ -400,11 +405,10 @@ class Poker():
     points = points + (hand[2].rank) * 15 ** 2 + (hand[3].rank) * 15 ** 1
     points = points + (hand[4].rank)
 
-    return points, 'High Card'
+    return (points, 'High Card')
+
 
 # main calls functions
-
-
 def main():
   num_all_hands = 6
   # num_all_hands = int(input('Enter the number of all_hands: '))
