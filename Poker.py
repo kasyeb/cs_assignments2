@@ -12,7 +12,7 @@
 
 #  Date Created: 2/17/19
 
-#  Date Last Modified:
+#  Date Last Modified: 2/18/2019
 
 import random
 
@@ -115,8 +115,9 @@ class Poker():
       hand_str = ''
       for card in sorted_hand:
         hand_str = hand_str + str(card) + ' '
-      print("Player " + str(i + 1) + ' : ' + hand_str)
+      print("Player " + str(i + 1) + ': ' + hand_str)
     print()
+
     # determine hand and print
     hand_type = []
     hand_points = []
@@ -175,6 +176,7 @@ class Poker():
     # determine winner
     allHandsPoints = []
 
+    # setting max points
     maxTuplePoints = 0
     for i in range(len(hand_points)):
       if (hand_points[i][0]) > maxTuplePoints:
@@ -184,25 +186,22 @@ class Poker():
       if (hand_type[i]) == max(hand_type):
         allHandsPoints.append(i)
 
+    # checking if one player wins out right
     i = 0
-    print(hand_points)
     if len(allHandsPoints) == 1:
       print()
       print('Player ' + str(allHandsPoints[0] + 1) + ' wins.')
 
     else:
+      playerScores = {}
       while i < len(allHandsPoints):
-        if (hand_points[allHandsPoints[i]]) == (maxTuplePoints):
-          print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
-          hand_points[allHandsPoints[i]] = 0
-          i = 0
-
-        elif (len(allHandsPoints) == 1):
-          print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
-          break
-
-        else:
-          i += 1
+        playerScores[allHandsPoints[i]] = hand_points[allHandsPoints[i]]
+        i += 1
+      # sorts dict by values
+      sort_dict = sorted(playerScores.items(), key=lambda kv: kv[1], reverse=True)
+      print()
+      for player, point in sort_dict:
+        print('Player ' + str(player + 1) + ' ties.')
 
   # checks if hand is royal flush
   def is_royal(self, hand):
@@ -275,7 +274,7 @@ class Poker():
 
     return (points, 'Four of a Kind')
 
-  # checks if hand is a full house CHECK AGAIN TO MAKE SURE IT WORKS LOGIC
+  # checks if hand is a full house
   def is_full_house(self, hand):
     full_house = False
     if ((hand[0].rank) == (hand[1].rank) == (hand[2].rank) and (hand[3].rank) == (hand[4].rank)) or ((hand[2].rank) == (hand[3].rank) == (hand[4].rank) and (hand[0].rank) == (hand[1].rank)):
@@ -410,12 +409,12 @@ class Poker():
 
 # main calls functions
 def main():
-  num_all_hands = 6
-  # num_all_hands = int(input('Enter the number of all_hands: '))
-  # while ((num_all_hands < 2) or (num_all_hands > 6)):
-  #   num_all_hands = int(input('Enter number of all_hands: '))
+  # prompt the user to enter the number of plaers
+  num_players = int(input('Enter number of players: '))
+  while ((num_players < 2) or (num_players > 6)):
+    num_players = int(input('Enter number of players: '))
 
-  game = Poker(num_all_hands)
+  game = Poker(num_players)
 
   game.play()
 
