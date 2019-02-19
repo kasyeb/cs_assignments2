@@ -94,14 +94,14 @@ class Deck():
 class Poker():
 
   # constructor
-  def __init__(self, num_players=2, num_card=5):
+  def __init__(self, num_all_hands=2, num_card=5):
     self.deck = Deck()
     self.deck.shuffle()
     self.all_hands = []
-    self.numCards_in_Hand = num_cards
+    self.numCards_in_Hand = num_card
 
-    # deals cards to players
-    for i in range(num_players):
+    # deals cards to all_hands
+    for i in range(num_all_hands):
       hand = []
       for j in range(self.numCards_in_Hand):
         hand.append(self.deck.deal())
@@ -114,65 +114,91 @@ class Poker():
       self.all_hands[i] = sorted_hand
       hand_str = ''
       for card in sorted_hand:
-        hand_str = hand_str + str(card) + ''
+        hand_str = hand_str + str(card) + ' '
       print("Player " + str(i + 1) + ' : ' + hand_str)
-
+    print()
     # determine hand and print
     hand_type = []
     hand_points = []
 
-    for i in range(len(self.players)):
-      if ((self.is_royal(self.players[i])) != 0):
+    for i in range(len(self.all_hands)):
+      if ((self.is_royal(self.all_hands[i])) != 0):
         hand_type.append(10)
-        hand_points.append(self.is_royal(self.players[i]))
-        print('Player' + str(i + 1) + ': Royal Flush')
+        hand_points.append(self.is_royal(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Royal Flush')
 
-      elif ((self.is_straight_flush(self.players[i])) != 0):
+      elif ((self.is_straight_flush(self.all_hands[i])) != 0):
         hand_type.append(9)
-        hand_points.append(self.is_straight_flush(self.players[i]))
-        print('Player' + str(i + 1) + ': Straight Flush')
+        hand_points.append(self.is_straight_flush(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Straight Flush')
 
-      elif ((self.is_four_kind(self.players[i])) != 0):
+      elif ((self.is_four_kind(self.all_hands[i])) != 0):
         hand_type.append(8)
-        hand_points.append(self.is_four_kind(self.players[i]))
-        print('Player' + str(i + 1) + ': Four of a Kind')
+        hand_points.append(self.is_four_kind(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Four of a Kind')
 
-      elif ((self.is_full_house(self.players[i])) != 0):
+      elif ((self.is_full_house(self.all_hands[i])) != 0):
         hand_type.append(7)
-        hand_points.append(self.is_full_house(self.players[i]))
-        print('Player' + str(i + 1) + ': Full House')
+        hand_points.append(self.is_full_house(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Full House')
 
-      elif (self.is_flush(self.players[i])) != 0:
+      elif (self.is_flush(self.all_hands[i])) != 0:
         hand_type.append(6)
-        hand_points.append(self.is_flush(self.players[i]))
-        print('Player' + str(i + 1) + ': Flush')
+        hand_points.append(self.is_flush(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Flush')
 
-      elif ((self.is_straight(self.players[i])) != 0):
+      elif ((self.is_straight(self.all_hands[i])) != 0):
         hand_type.append(5)
-        hand_points.append(self.is_straight(self.players[i]))
-        print('Player' + str(i + 1) + ': Straight')
+        hand_points.append(self.is_straight(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Straight')
 
-      elif ((self.is_three_kind(self.players[i])) != 0):
+      elif ((self.is_three_kind(self.all_hands[i])) != 0):
         hand_type.append(4)
-        hand_points.append(self.is_three_kind(self.players[i]))
-        print('Player' + str(i + 1) + ': Three of a Kind')
+        hand_points.append(self.is_three_kind(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Three of a Kind')
 
-      elif ((self.is_two_pair(self.players[i])) != 0):
+      elif ((self.is_two_pair(self.all_hands[i])) != 0):
         hand_type.append(3)
-        hand_points.append(self.is_two_pair(self.players[i]))
-        print('Player' + str(i + 1) + ': Two Pair')
+        hand_points.append(self.is_two_pair(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': Two Pair')
 
-      elif ((self.is_one_pair(self.players[i])) != 0):
+      elif ((self.is_one_pair(self.all_hands[i])) != 0):
         hand_type.append(2)
-        hand_points.append(self.is_one_pair(self.players[i]))
-        print('Player' + str(i + 1) + ': One Pair')
+        hand_points.append(self.is_one_pair(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': One Pair')
 
-      elif ((self.is_high_card(self.players[i])) != 0):
+      elif ((self.is_high_card(self.all_hands[i])) != 0):
         hand_type.append(1)
-        hand_points.append(self.is_high_card(self.players[i]))
-        print('Player' + str(i + 1) + ': High Card')
+        hand_points.append(self.is_high_card(self.all_hands[i]))
+        print('Player ' + str(i + 1) + ': High Card')
 
     # determine winner
+      allHandsPoints = []
+
+      for i in range(len(hand_points)):
+        if (hand_type[i]) == max(hand_type):
+          allHandsPoints.append(i)
+
+      i = 0
+      if len(allHandsPoints) == 1:
+        print()
+        print('Player ' + str(allHandsPoints[0] + 1) + ' wins.')
+
+      else:
+        while i < len(allHandsPoints):
+          if (hand_points[allHandsPoints[i]] == max(hand_type)):
+            print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
+            hand_points[allHandsPoints[i]] = 0
+            i = 0
+
+          elif (len(allHandsPoints) == 1):
+            print('Player' + str(allHandsPoints[i] + 1) + ' ties.')
+            return
+
+          else:
+            i += 1
+
+      return
 
   # checks if hand is royal flush
   def is_royal(self, hand):
@@ -380,11 +406,12 @@ class Poker():
 
 
 def main():
-  num_players = int(input('Enter the number of players: '))
-  while ((num_players < 2) or (num_players > 6)):
-    num_players = int(input('Enter number of players: '))
+  num_all_hands = 6
+  # num_all_hands = int(input('Enter the number of all_hands: '))
+  # while ((num_all_hands < 2) or (num_all_hands > 6)):
+  #   num_all_hands = int(input('Enter number of all_hands: '))
 
-  game = Poker(num_players)
+  game = Poker(num_all_hands)
 
   game.play()
 
