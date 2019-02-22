@@ -6,7 +6,6 @@
 
 #  Student UT EID: vs9736
 
-
 #  Course Name: CS 313E
 
 #  Unique Number: 50725
