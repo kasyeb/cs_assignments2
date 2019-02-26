@@ -12,7 +12,7 @@
 
 # Date Created: 2/24/19
 
-# Date Last Modified:
+# Date Last Modified: 2/25/2019
 
 import random
 
@@ -36,7 +36,7 @@ class Card():
     if (self.rank == 1):
       rank = 'A'
     elif (self.rank == 13):
-      rankk = 'K'
+      rank = 'K'
     elif (self.rank == 12):
       rank = 'Q'
     elif (self.rank == 11):
@@ -44,25 +44,25 @@ class Card():
     else:
       rank = str(self.rank)
 
-    return rank + self.suit
+    return (rank + self.suit)
 
   def __eq__(self, other):
-    return self.rank == other.rank
+    return (self.rank == other.rank)
 
   def __ne__(self, other):
-    return self.rank != other.rank
+    return (self.rank != other.rank)
 
   def __lt__(self, other):
-    return self.rank < other.rank
+    return (self.rank < other.rank)
 
   def __le__(self, other):
-    return self.rank <= other.rank
+    return (self.rank <= other.rank)
 
   def __gt__(self, other):
-    return self.rank > other.rank
+    return (self.rank > other.rank)
 
   def __ge__(self, other):
-    return self.rank >= other.rank
+    return (self.rank >= other.rank)
 
 
 class Deck():
@@ -86,10 +86,10 @@ class Deck():
 
 class Player():
   def __init__(self, cards):
-    self.cards = card
+    self.cards = cards
 
   def hit(self, card):
-    self.card.append(card)
+    self.cards.append(card)
 
   def get_points(self):
     count = 0
@@ -99,12 +99,12 @@ class Player():
       elif (card.rank == 1):
         count += 11
       else:
-        count += self.rank
+        count += card.rank
 
     for card in self.cards:
       if (count <= 21):
         break
-      elif (card.count == 1):
+      elif (card.rank == 1):
         count = count - 10
 
     return count
@@ -113,17 +113,26 @@ class Player():
     return (len(self.cards) == 2) and (self.get_points() == 21)
 
   def __str__(self):
-    return ''
+    hand = ''
+    points = self.get_points()
+    for card in self.cards:
+      hand = hand + str(card) + ' '
+
+    pointStr = '- ' + str(points) + ' points'
+
+    return (hand + pointStr)
+
 
 
 class Dealer(Player):
-  def __iniit__(self, cards):
+  def __init__(self, cards):
+    Player.__init__(self, cards)
     self.show_one_card = True
 
   def hit(self, deck):
     self.show_one_card = False
     while (self.get_points() < 17):
-      self.card.append(deck.deal())
+      self.cards.append(deck.deal())
 
   def __str__(self):
     if (self.show_one_card):
@@ -147,42 +156,49 @@ class Blackjack():
     self.dealer = Dealer([self.deck.deal(), self.deck.deal()])
 
   def play(self):
+    print()
     for i in range(self.num_players):
       print('Player ' + str(i + 1) + ' : ' + str(self.player_list[i]))
 
-      print('Dealer : ' + str(self.dealer))
+    print('Dealer : ' + str(self.dealer))
+
 
     player_points = []
-    for i in range(num_players):
+    for i in range(self.num_players):
+      print()
       while True:
-        choice = input('do you want to hit? [y / n]: ')
+        choice = input('Player ' + str(i + 1) + ', do you want to hit? [y / n]: ')
         if choice in ('y', 'Y'):
           (self.player_list[i]).hit(self.deck.deal())
           points = (self.player_list[i]).get_points()
           print('Player ' + str(i + 1) + ' : ' + str(self.player_list[i]))
           if (points >= 21):
             break
+            print()
         else:
           break
-
+          print()
       player_points.append((self.player_list[i]).get_points())
 
     self.dealer.hit(self.deck)
     dealer_points = self.dealer.get_points()
-    print('Dealer :' + str(self.dealer))
-
-    if (player.has_blackjack()):
-      print('Player wins')
-    elif (player_points > 21):
-      print('Player loses')
-    elif (dealer_points <= 21) and (dealer_points > player_points):
-      print(' Player loses')
-    elif (dealer_points < player_points) and (player_points <= 21):
-      print('Player wins')
-    elif (dealer_points == player_points):
-      print('Player ties')
-    else:
-      print('Player wins')
+    print()
+    # print('Dealer : ' + str(self.dealer) + ' - ' + str(dealer_points))
+    print('Dealer :' + str(self.dealer), '\n')
+    print()
+    for i in range(self.num_players):
+      if (player_points[i] > 21):
+        print('Player ' + str(i + 1) + ' loses')
+      elif (self.player_list[i].has_blackjack() or dealer_points > 21):
+        print('Player ' + str(i + 1) + ' wins')
+      elif (self.dealer.has_blackjack()):
+        print('Player ' + str(i + 1) + ' loses')
+      elif (dealer_points <= 21) and (dealer_points > player_points[i]):
+        print('Player ' + str(i + 1) + ' loses')
+      elif (dealer_points < player_points[i] and player_points[i] <= 21):
+        print('Player ' + str(i + 1) + ' wins')
+      elif (dealer_points == player_points[i]):
+        print('Player ' + str(i + 1) + ' ties')
 
 
 def main():
