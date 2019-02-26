@@ -16,7 +16,7 @@
 
 import random
 
-
+# Card class from Poker with some changes
 class Card():
   RANKS = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
   SUITS = ('C', 'D', 'H', 'S')
@@ -64,7 +64,7 @@ class Card():
   def __ge__(self, other):
     return (self.rank >= other.rank)
 
-
+# Deck class
 class Deck():
   def __init__(self, num_decks=1):
     self.deck = []
@@ -83,7 +83,7 @@ class Deck():
     else:
       return self.deck.pop(0)
 
-
+# Player class from Poker with some changes
 class Player():
   def __init__(self, cards):
     self.cards = cards
@@ -109,6 +109,7 @@ class Player():
 
     return count
 
+  # checks if there is blackjack
   def has_blackjack(self):
     return (len(self.cards) == 2) and (self.get_points() == 21)
 
@@ -123,7 +124,7 @@ class Player():
     return (hand + pointStr)
 
 
-
+# Dealer class inherits Player class
 class Dealer(Player):
   def __init__(self, cards):
     Player.__init__(self, cards)
@@ -140,7 +141,7 @@ class Dealer(Player):
     else:
       return Player.__str__(self)
 
-
+# Blackjack class checks if players have blackjack
 class Blackjack():
   def __init__(self, num_players=1):
     self.deck = Deck()
@@ -162,7 +163,7 @@ class Blackjack():
 
     print('Dealer : ' + str(self.dealer))
 
-
+    # goes through all the players and checks for blackjack and asks to hit
     player_points = []
     for i in range(self.num_players):
       print()
@@ -186,6 +187,8 @@ class Blackjack():
     # print('Dealer : ' + str(self.dealer) + ' - ' + str(dealer_points))
     print('Dealer :' + str(self.dealer), '\n')
     print()
+
+    # checks to see who won
     for i in range(self.num_players):
       if (player_points[i] > 21):
         print('Player ' + str(i + 1) + ' loses')
