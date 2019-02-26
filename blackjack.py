@@ -17,6 +17,8 @@
 import random
 
 # Card class from Poker with some changes
+
+
 class Card():
   RANKS = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
   SUITS = ('C', 'D', 'H', 'S')
@@ -65,6 +67,8 @@ class Card():
     return (self.rank >= other.rank)
 
 # Deck class
+
+
 class Deck():
   def __init__(self, num_decks=1):
     self.deck = []
@@ -84,6 +88,8 @@ class Deck():
       return self.deck.pop(0)
 
 # Player class from Poker with some changes
+
+
 class Player():
   def __init__(self, cards):
     self.cards = cards
@@ -142,6 +148,8 @@ class Dealer(Player):
       return Player.__str__(self)
 
 # Blackjack class checks if players have blackjack
+
+
 class Blackjack():
   def __init__(self, num_players=1):
     self.deck = Deck()
@@ -159,9 +167,9 @@ class Blackjack():
   def play(self):
     print()
     for i in range(self.num_players):
-      print('Player ' + str(i + 1) + ' : ' + str(self.player_list[i]))
+      print('Player ' + str(i + 1) + ': ' + str(self.player_list[i]))
 
-    print('Dealer : ' + str(self.dealer))
+    print('Dealer: ' + str(self.dealer))
 
     # goes through all the players and checks for blackjack and asks to hit
     player_points = []
@@ -172,7 +180,7 @@ class Blackjack():
         if choice in ('y', 'Y'):
           (self.player_list[i]).hit(self.deck.deal())
           points = (self.player_list[i]).get_points()
-          print('Player ' + str(i + 1) + ' : ' + str(self.player_list[i]))
+          print('Player ' + str(i + 1) + ': ' + str(self.player_list[i]))
           if (points >= 21):
             break
             print()
@@ -185,8 +193,7 @@ class Blackjack():
     dealer_points = self.dealer.get_points()
     print()
     # print('Dealer : ' + str(self.dealer) + ' - ' + str(dealer_points))
-    print('Dealer :' + str(self.dealer), '\n')
-    print()
+    print('Dealer: ' + str(self.dealer), '\n')
 
     # checks to see who won
     for i in range(self.num_players):
