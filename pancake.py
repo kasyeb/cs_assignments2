@@ -1,6 +1,9 @@
 # new assignment 
 def pancake():
-  pass
+  leng = len(lst)
+  i = 0
+  while i < leng - 1:
+    pass
 
 def helper():
   pass
