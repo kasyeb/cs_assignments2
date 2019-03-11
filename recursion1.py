@@ -184,7 +184,12 @@ def noX(str):
 # begins at the given index. In this way, a recursive call can pass index+1
 # to move down the array. The initial call will pass in index as 0.
 def array6(nums, index):
-a=
+  if index == len(nums):
+    return False
+  elif (nums[index] == 6):
+    return True
+  else:
+    return array6(nums, index+1)
 
 
 # Given an array of ints, compute recursively the number of times that the
@@ -192,9 +197,11 @@ a=
 # only the part of the array that begins at the given index. In this way,
 # a recursive call can pass index+1 to move down the array. The initial
 # call will pass in index as 0.
-#def array11(nums, index):
-
-
+def array11(nums, index):
+  if index == len(nums):
+    return 0
+  elif (nums[index] == 11):
+    return 1 + array11(nums, index+1)
 
 # Given an array of ints, compute recursively if the array contains
 # somewhere a value followed in the array by that value times 10. We'll
