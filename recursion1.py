@@ -117,45 +117,74 @@ def count8(n):
 # Given base and n that are both 1 or more, compute recursively (no loops)
 # the value of base to the n power, so powerN(3, 2) is 9 (3 squared).
 def powerN(base, n):
-  if n == 0:
-    return 1
+  if n == 1:
+    return base
   else:
     return base * (base, n-1)
 
 # Given a string, compute recursively (no loops) the number of lowercase
 # 'x' chars in the string.
-# def countX(str):
-
+def countX(str):
+  if len(str) == 0:
+      return 0
+  elif str[0] == 'x':
+    return 1 + countX(str[1:])
+  else:
+      return countX(str[1:])
 
 # Given a string, compute recursively (no loops) the number of times
 # lowercase "hi" appears in the string.
-#def countHi(str):
+def countHi(str):
+  if len(str) < 2:
+    return 0
+  elif (str[0:2] == 'hi'):
+    return 1 + countHi(str[2:])
+  else:
+    return countHi(str[2:])
 
 
 
 # Given a string, compute recursively (no loops) a new string where all
 # the lowercase 'x' chars have been changed to 'y' chars.
-#def changeXY(str):
+def changeXY(str):
+  if str == '':
+    return str
+  elif (str[0] == 'x'):
+    return 'y' + changeXY(str[1:])
+  else:
+    return str[0] + changeXY(str[1:])
 
 
 
 # Given a string, compute recursively (no loops) a new string where all
 # appearances of "pi" have been replaced by "3.14".
-#def changePi(str):
-
+def changePi(str):
+  if str == '':
+    return str
+  elif (str[0:2] == 'pi'):
+    return '3.14' + changePi(str[2:])
+  else:
+      return str[0:2] + changePi(str[2:])
 
 # Given a string, compute recursively a new string where all the 'x'
 # chars have been removed.
-#def noX(str):
+def noX(str):
+  if str == '':
+    return str
+  elif (str[0] == 'x'):
+    return noX(str[1:])
+  else:
+    return str[0] + noX(str[1:])
 
+  
 
 
 # Given an array of ints, compute recursively if the array contains a 6.
 # We'll use the convention of considering only the part of the array that
 # begins at the given index. In this way, a recursive call can pass index+1
 # to move down the array. The initial call will pass in index as 0.
-#def array6(nums, index):
-
+def array6(nums, index):
+a=
 
 
 # Given an array of ints, compute recursively the number of times that the
