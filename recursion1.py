@@ -119,8 +119,10 @@ def count8(n):
 def powerN(base, n):
   if n == 1:
     return base
+  elif (n == 0):
+    return 0
   else:
-    return base * (base, n-1)
+    return base * powerN(base, n-1)
 
 # Given a string, compute recursively (no loops) the number of lowercase
 # 'x' chars in the string.
@@ -134,6 +136,7 @@ def countX(str):
 
 # Given a string, compute recursively (no loops) the number of times
 # lowercase "hi" appears in the string.
+# 6/7 test cases
 def countHi(str):
   if len(str) < 2:
     return 0
@@ -158,6 +161,7 @@ def changeXY(str):
 
 # Given a string, compute recursively (no loops) a new string where all
 # appearances of "pi" have been replaced by "3.14".
+# 9/10 test cases passed
 def changePi(str):
   if str == '':
     return str
@@ -202,32 +206,55 @@ def array11(nums, index):
     return 0
   elif (nums[index] == 11):
     return 1 + array11(nums, index+1)
+  else:
+    return array11(nums, index+1)
 
 # Given an array of ints, compute recursively if the array contains
 # somewhere a value followed in the array by that value times 10. We'll
 # use the convention of considering only the part of the array that begins
 # at the given index. In this way, a recursive call can pass index+1 to
 # move down the array. The initial call will pass in index as 0.
-#def array220(nums, index):
-
+# 10/12 test cases passed
+def array220(nums, index):
+  if index == len(nums):
+    return False
+  elif (nums[index] * 10) in nums:
+    return True
+  else:
+    return array220(nums, index+1)
+  
 
 
 # Given a string, compute recursively a new string where all the adjacent
 # chars are now separated by a "*".
-#def allStar(str):
-
+def allStar(str):
+  if len(str) < 2:
+      return str
+  else:
+    return str[0] + '*' + allStar(str[1:])
 
 
 # Given a string, compute recursively a new string where identical chars
 # that are adjacent in the original string are separated from each other
 # by a "*".
-#def pairStar(str):
-
+def pairStar(str):
+  if len(str) < 2:
+    return str
+  elif (str[0] == str[1]):
+    return str[0] + '*' + pairStar(str[1:])
+  else:
+    return str[0] + pairStar(str[1:])
 
 
 # Given a string, compute recursively a new string where all the lowercase
 # 'x' chars have been moved to the end of the string.
-#def endX(str):
+def endX(str):
+  if len(str) == 0:
+    return str
+  elif (str[0] == 'x'):
+    return endX(str[1:]) + 'x'
+  else:
+    return str[0] + endX(str[1:])
 
 
 
@@ -235,69 +262,129 @@ def array11(nums, index):
 # by a char. So "AxA" the A's make a pair. Pair's can overlap, so "AxAxA"
 # contains 3 pairs -- 2 for A and 1 for x. Recursively compute the number
 # of pairs in the given string.
-#def countPairs(str):
-
+def countPairs(str):
+  if len(str) < 3:
+    return 0
+  elif (str[0] == str[2]):
+    return 1 + countPairs(str[1:])
+  else:
+    return countPairs(str[1:])
 
 
 # Count recursively the total number of "abc" and "aba" substrings that
 # appear in the given string.
-#def countAbc(str):
-
+# 8/12 tescases passed
+def countAbc(str):
+  if len(str) < 3:
+    return 0
+  elif (str[0:3] == 'abc' or str[0:3] == 'aba'):
+    return 1 + countAbc(str[3:])
+  else:
+    return countAbc(str[3:])
 
 
 # Given a string, compute recursively (no loops) the number of "11"
 # substrings in the string. The "11" substrings should not overlap.
-#def count11(str):
-
+# 5/11 test cases passed
+def count11(str):
+  if len(str) < 2:
+    return 0
+  elif (str[0:2] == 11):
+    return 1 + count11(str[2:])
+  else:
+    return count11(str[1:])
 
 
 # Given a string, return recursively a "cleaned" string where adjacent
 # chars that are the same have been reduced to a single char. So "yyzzza"
 # yields "yza".
-#def stringClean(str):
+def stringClean(str):
+  if len(str) < 2:
+    return str
+  elif (str[0] == str[1]):
+    return stringClean(str[1:])
+  else:
+    return str[0] + stringClean(str[1:])
 
 
 
 # Given a string, compute recursively the number of times lowercase "hi"
 # appears in the string, however do not count "hi" that have an 'x'
 # immedately before them.
-#def countHi2(str):
-
+def countHi2(str):
+  if len(str) == 0:
+    return 0
+  elif (str[0:3] == 'xhi'):
+    return countHi2(str[3:])
+  elif (str[0:2] == 'hi'):
+    return 1 + countHi2(str[2:])
+  else:
+    return countHi2(str[1:])
 
 
 # Given a string that contains a single pair of parenthesis, compute
 # recursively a new string made of only of the parenthesis and their
 # contents, so "xyz(abc)123" yields "(abc)".
-#def parenBit(str):
-
-
+def parenBit(str):
+  if str[0] == '(':
+    if str[-1] == ')':
+      return str
+    else:
+      return parenBit(str[0:len(str)-1])
+  else:
+    return parenBit(str[1:len(str)])
 
 # Given a string, return True if it is a nesting of zero or more pairs
 # of parenthesis, like "(())" or "((()))". Suggestion: check the first
 # and last chars, and then recur on what's inside them.
-#def nestParen(str):
-
-
-
+def nestParen(str):
+  if len(str) == 0:
+    return True
+  if len(str) < 1:
+    return False
+  if str[0] == '(':
+    if str[-1] == ')':
+      return nestParen(str[1:len(str)-1])
+    else:
+      return False
+  else:
+    return False
+  
 # Given a string and a non-empty substring sub, compute recursively the
 # number of times that sub appears in the string, without the sub strings
 # overlapping.
-#def strCount(str, sub):
-
-
+def strCount(str, sub):
+  if ((len(str) == 0) or (len(sub) > len(str))):
+    return 0
+  elif (str[0:len(sub)] == sub):
+    return 1 + strCount(str[len(sub):], sub)
+  else:
+    return strCount(str[1:], sub)
 
 # Given a string and a non-empty substring sub, compute recursively if
 # at least n copies of sub appear in the string somewere, possibly with
 # overlapping. n will be non-negative.
-#def strCopies(str, sub, n):
-
-
+def strCopies(str, sub, n):
+  if n == 0:
+    return True
+  elif (len(sub) > len(str)):
+    return False
+  elif (str[0:len(sub)] == sub):
+    return strCopies(str[1:], sub, n-1)
+  else:
+    return strCopies(str[1:], sub, n)
 
 # Given a string and a non-empty substring sub, compute recursively the
 # largest substring which starts and ends with sub and return its length.
-#def strDist(str, sub):
-
-
+def strDist(str, sub):
+  if (len(str) < len(sub)):
+    return 0
+  elif (str[0:len(sub)] != sub):
+    return strDist(str[1:], sub)
+  elif (str[len(str)-len(sub):] != sub):
+    return strDist(str[:-1], sub)
+  else:
+    return len(str)
 
 
 #######################################################################################################
@@ -318,7 +405,7 @@ def main(argv):
         if not problem in problems:
             printHelp()
             exit(1)
-
+    
     factorial_args = [1, 2, 3, 4, 5, 6]
     bunnyEars_args = [0, 1, 2, 3, 5, 4, 12]
     fibonacci_args = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -398,7 +485,7 @@ def main(argv):
               correct += 1
           else: # print fail message
               print ("\nWrong!", prob + "(" + str(locals()[prob+"_args"][i]) + ") result:", str(globals()[prob](first, second)), " expected:", str(locals()[prob+"_ans"][i]))
-        else:
+        else:    
           first, second, third = locals()[prob+"_args"][i]
           if globals()[prob](first, second, third) == locals()[prob+"_ans"][i]:
               print ("\nCorrect!", prob + "(" + str(locals()[prob+"_args"][i]) + ") result:", str(globals()[prob](first, second, third)), " expected:", str(locals()[prob+"_ans"][i]))
@@ -409,13 +496,13 @@ def main(argv):
 
 def printHelp():
     print ("\nRemove the comment symbol before the name of the function")
-    print ("that you wish to write and test. Write your code and then")
-    print ("test your code on the command line. For example, if the")
+    print ("that you wish to write and test. Write your code and then") 
+    print ("test your code on the command line. For example, if the") 
     print ("function that you wrote was factorial, you would test it on")
     print ("the command line like so:\n")
     print ("python recursion1.py factorial\n")
-    print ("Invoke with \"python recursion1.py all\" to run all of the")
+    print ("Invoke with \"python recursion1.py all\" to run all of the") 
     print ("function tests\n")
-
+      
 import sys
 main(sys.argv[1:])
