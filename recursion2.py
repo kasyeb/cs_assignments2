@@ -1,22 +1,18 @@
 #  File: recursion2.py 
 
-#  Description:
+#  Description: Second set of exercies
 
-#  Student Name:
+#  Student Name: Vinayak Sahal
 
-#  Student UT EID:
-
-#  Partner's Name:
-
-#  Partner's UT EID:
+#  Student UT EID: vs9736
 
 #  Course Name: CS 313E
 
-#  Unique Number: 
+#  Unique Number: 50725
 
-#  Date Created:
+#  Date Created: 3/13/2019
 
-#  Date Last Modified:
+#  Date Last Modified: 3/13/2019
 
 
 # Given an array of ints, is it possible to choose a group of some 
