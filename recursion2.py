@@ -25,7 +25,11 @@
 # continuing to the end of the array. The caller can specify the 
 # whole array simply by passing start as 0. No loops are needed -- 
 # the recursive calls progress down the array. 
-#def groupSum(start, nums, target):
+def groupSum(start, nums, target):
+  if (start >= len(nums)):
+    return (target == 0)
+  else:
+    return groupSum(start+1, nums, target-nums[start]) or groupSum(start+1, nums, target)
 
 
   
