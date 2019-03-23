@@ -1,3 +1,9 @@
+def f1():
+  pass
+
+def f2():
+  pass
+
 def main():
   # open file for reading
   in_file = open ("./boxes.txt", "r")
