@@ -12,30 +12,42 @@
 
 #  Date Created: 3/20/2019
 
-#  Date Last Modified: 3/21/2019
+#  Date Last Modified: 3/25/2019
 
-
+# checks if boxes fit
 def fit(box1, box2):
   if ((box1[0] < box2[0]) and (box1[1] < box2[1]) and (box1[2] < box2[2])):
     return True
+
   else:
     return False
 
+# helper function
+def helper(val):
+  for i in range(0, len(val) - 1):
+    if fit(val[i], val[i + 1]) == True:
+      return False
+    else:
+      return True
 
+# helper function and subset algorithm nested together
 def subsets(i, j, k, l):
-  condition = True
-  if l == len(i):
+  fitted = True
+
+  if (l == len(i)):
     for nums in range(len(j) - 1):
       if fit(j[nums], j[nums + 1]) == False:
-        condition = False
+        fitted = False
 
-    if condition == True:
+    if fitted == True:
       k.append(j)
 
-  new = j[:]
-  j.append(i[l])
-  subsets(i, new, k, l + 1)
-  subsets(i, j, k, l + 1)
+  # subset algorithm
+  else:
+    new = j[:]
+    j.append(i[l])
+    subsets(i, new, k, l + 1)
+    subsets(i, j, k, l + 1)
 
 
 def main():
@@ -48,7 +60,10 @@ def main():
   num_boxes = int(line)
 
   # create an empty list of boxes
-  box_list = []
+  boxList = []
+  subsetList = []
+  nestedBoxesList = []
+  tempBoxList = []
 
   # read the list of boxes from the file
   for i in range(num_boxes):
@@ -58,26 +73,35 @@ def main():
     for j in range(len(box)):
       box[j] = int(box[j])
     box.sort()
-    box_list.append(box)
+    boxList.append(box)
 
-  # close the file
+  boxList.sort()
   in_file.close()
 
-  print(box_list)
-  print()
+  subsets(boxList, nestedBoxesList, subsetList, 0)
 
-  # sort the box list
-  box_list.sort()
-  print(box_list)
-  print()
+  val = 2
+  for i in subsetList:
+    if len(i) > val:
+      val = len(i)
 
-  # get all subsets of boxes
+  # finds the biggest box size
+  maxBox = []
+  for i in subsetList:
+    if len(i) == val:
+      maxBox.append(i)
 
-  # check if all the boxes in a given subset fit
-  # keep track of it
+  # prints values
+  if len(maxBox) != 0:
+    print('Largest Subset of Nesting Boxes')
+    maxBox.sort()
+    for i in maxBox:
+      for j in range(len(i)):
+        print(i[j])
+      print()
 
-  # print all the largest subset of boxes
-  # look at mitra notes
+  else:
+    print('No Nesting Boxes')
 
 
 main()
