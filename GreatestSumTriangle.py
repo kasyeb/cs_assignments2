@@ -1,3 +1,22 @@
+#  File: Triangle.py
+
+#  Description:
+
+#  Student's Name:
+
+#  Student's UT EID:
+
+#  Partner's Name:
+
+#  Partner's UT EID:
+
+#  Course Name: CS 313E 
+
+#  Unique Number: 
+
+#  Date Created:
+
+#  Date Last Modified:
 from timeit import timeit
 
 # returns the greatest path sum using exhaustive search
