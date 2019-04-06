@@ -1,20 +1,16 @@
 #  File: Triangle.py
 
-#  Description:
+#  Description: Solving problem with different approaches
 
-#  Student's Name:
+#  Student's Name: Vinayak Sahal
 
-#  Student's UT EID:
-
-#  Partner's Name:
-
-#  Partner's UT EID:
+#  Student's UT EID: vs9736
 
 #  Course Name: CS 313E 
 
-#  Unique Number: 
+#  Unique Number: 50725
 
-#  Date Created:
+#  Date Created: 3/3/2019
 
 #  Date Last Modified:
 from timeit import timeit
