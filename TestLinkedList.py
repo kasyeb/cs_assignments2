@@ -113,7 +113,7 @@ class LinkedList (object):
     while (current.data != data):
       if (current.next == None):
         return None
-      elif (current.data.next > data):
+      elif (current.next.data > data):
         return None
 
       else:
@@ -206,7 +206,7 @@ class LinkedList (object):
       return None
 
     while (current != None):
-      new_list.insert_first(current.data)  # new_list.insert_in_order(current.data)
+      new_list.insert_in_order(current.data)
       current = current.next
 
     return new_list
@@ -271,17 +271,17 @@ class LinkedList (object):
   def remove_duplicates(self):
     duplicatesList = LinkedList()
     duplicates = []
+
     current = self.first
 
     while (current != None):
-      if (current.data in duplicates):
-        pass
+      if (current.data not in duplicates):
+        duplicatesList.insert_last(current.data)
+        duplicates.append(current.data)
+        current = current.next
 
       else:
-        duplicates.append(current.data)
-        duplicatesList.insert_last(current.data)
-
-      current = current.data
+        current = current.next
 
     return duplicatesList
 
@@ -392,9 +392,13 @@ def main():
   # Test method is_sorted()
   # Consider two cases - list is sorted, list is not sorted
   print('')
+  testLinkedList11 = LinkedList()
+  for i in range(25):
+    testLinkedList11.insert_last(i)
+
   print('Testing is_sorted() with testLinkedList4 (not sorted) and testLinkedList1 (sorted): ')
-  print('testLinkedList1.is_sorted()')
-  print(testLinkedList1.is_sorted())
+  print('testLinkedList11.is_sorted()')
+  print(testLinkedList11.is_sorted())
   print('testLinkedList4.is_sorted()')
   print(testLinkedList4.is_sorted())
 
@@ -413,7 +417,7 @@ def main():
     testLinkedList5.insert_last(randNum)
 
   for j in range(10):
-    randNum = random.randInt(0, 10)
+    randNum = random.randint(0, 10)
     testLinkedList6.insert_last(randNum)
 
   print('Testing merge_list() with testLinkedList5 and testLinkedList6: ')
@@ -450,7 +454,7 @@ def main():
   print('')
   testLinkedList10 = LinkedList()
   for i in range(20):
-    randNum = randint(0, 5)
+    randNum = random.randint(0, 5)
     testLinkedList10.insert_last(randNum)
 
   print('Testing remove_duplicates(): ')
