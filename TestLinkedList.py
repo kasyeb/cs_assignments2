@@ -20,6 +20,9 @@ class Link(object):
     self.data = data
     self.next = next
 
+  def __str__(self):
+    return str(self.data)
+
 
 class LinkedList (object):
   def __init__(self):
@@ -27,6 +30,14 @@ class LinkedList (object):
 
   # get number of links
   def get_num_links(self):
+    count = 0
+    current = self.first
+
+    while (current != None):
+      count += 1
+      current = current.next
+
+    return count
 
     # add an item at the beginning of the list
   def insert_first(self, data):
@@ -97,6 +108,14 @@ class LinkedList (object):
 
     # Copy the contents of a list and return new list
   def copy_list(self):
+    newList = LinkedList()
+    current = self.first
+
+    while (current != None):
+      newList.insert_last(current.data)
+      current = current.next
+
+    return newList
 
     # Reverse the contents of a list and return new list
   def reverse_list(self):
@@ -106,9 +125,20 @@ class LinkedList (object):
 
     # Return True if a list is sorted in ascending order or False otherwise
   def is_sorted(self):
+    sorted = True
+    current = self.first
+
+    while (current.next != None):
+      if (current.data <= current.next.data):
+        current = current.next
+      else:
+        sorted = False
+
+    return sorted
 
     # Return True if a list is empty or False otherwise
   def is_empty(self):
+    return (self.first == None)
 
     # Merge two sorted lists and return new list in ascending order
   def merge_list(self, other):
@@ -119,6 +149,8 @@ class LinkedList (object):
     # Return a new list, keeping only the first occurence of an element
     # and removing all duplicates. Do not change the order of the elements.
   def remove_duplicates(self):
+    duplicatesList = LinkedList()
+    current = self.first
 
 
 def main():
