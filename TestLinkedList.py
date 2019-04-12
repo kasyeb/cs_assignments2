@@ -16,6 +16,7 @@
 
 import random
 
+
 class Link(object):
   def __init__(self, data, next=None):
     self.data = data
@@ -84,9 +85,8 @@ class LinkedList (object):
       return
 
     else:
-      previous.next  = new_link
+      previous.next = new_link
       new_link.next = current
-
 
     # search in an unordered list, return None if not found
   def find_unordered(self, data):
@@ -120,7 +120,6 @@ class LinkedList (object):
         current = current.next
 
     return current
-
 
   def find_link(self, data):
     current = self.first
@@ -164,16 +163,16 @@ class LinkedList (object):
     dataStr = ''
     counter = 0
     current = self.first
-    
+
     while (current != None):
       dataStr = dataStr + str(current.data) + ' '
+      current = current.next
       counter += 1
 
       if (counter % 10 == 0):
         dataStr = dataStr + '\n'
 
     return dataStr
-
 
     # Copy the contents of a list and return new list
   def copy_list(self):
@@ -197,8 +196,8 @@ class LinkedList (object):
 
     return new_list
 
-
     # Sort the contents of a list in ascending order and return new list
+    # WRONG CHANGE IT - do some sorting algorithm
   def sort_list(self):
     new_list = LinkedList()
     current = self.first
@@ -207,30 +206,29 @@ class LinkedList (object):
       return None
 
     while (current != None):
-      new_list.insert_first(current.data)
+      new_list.insert_first(current.data)  # new_list.insert_in_order(current.data)
       current = current.next
 
     return new_list
 
-
     # Return True if a list is sorted in ascending order or False otherwise
   def is_sorted(self):
-    sorted = True
     current = self.first
 
     while (current.next != None):
       if (current.data <= current.next.data):
         current = current.next
       else:
-        sorted = False
+        return False
 
-    return sorted
+    return True
 
     # Return True if a list is empty or False otherwise
   def is_empty(self):
     return (self.get_num_links() == 0)
 
     # Merge two sorted lists and return new list in ascending order
+    # MIGHT BE WRONG CHECK - do some sorting algorithm
   def merge_list(self, other):
     new_list = LinkedList()
     selfCurrent = self.first
@@ -278,7 +276,7 @@ class LinkedList (object):
     while (current != None):
       if (current.data in duplicates):
         pass
-      
+
       else:
         duplicates.append(current.data)
         duplicatesList.insert_last(current.data)
@@ -286,8 +284,6 @@ class LinkedList (object):
       current = current.data
 
     return duplicatesList
-
-
 
 
 def main():
@@ -303,7 +299,6 @@ def main():
   print('Testing insert_first() and __str__(): ')
   print('Printing Linked List')
   print(testLinkedList1)
-
 
   # Test method insert_last()
 
@@ -325,7 +320,6 @@ def main():
   print('Testing insert_in_order(): ')
   print('Printing Linked List')
   print(testLinkedList3)
-
 
   # Test method get_num_links()
   print('')
@@ -386,7 +380,7 @@ def main():
   print('')
   testLinkedList4 = LinkedList()
   for i in range(20):
-    randNum = random.randint(0,19)
+    randNum = random.randint(0, 19)
     testLinkedList4.insert_last(randNum)
 
   print('Testing sort_list() on testLinkedList4: ')
@@ -415,11 +409,11 @@ def main():
   testLinkedList6 = LinkedList()
 
   for i in range(10):
-    randNum = random.randint(0,10)
+    randNum = random.randint(0, 10)
     testLinkedList5.insert_last(randNum)
 
   for j in range(10):
-    randNum = random.randInt(0,10)
+    randNum = random.randInt(0, 10)
     testLinkedList6.insert_last(randNum)
 
   print('Testing merge_list() with testLinkedList5 and testLinkedList6: ')
@@ -444,7 +438,7 @@ def main():
   for j in range(10):
     testLinkedList8.insert_last(j)
 
-  for k in range(115):
+  for k in range(15):
     testLinkedList9.insert_last(k)
 
   print('Testing if testLinkedList7 and testLinkedList8 are equal (true)')
@@ -456,7 +450,7 @@ def main():
   print('')
   testLinkedList10 = LinkedList()
   for i in range(20):
-    randNum = randint(0,5)
+    randNum = randint(0, 5)
     testLinkedList10.insert_last(randNum)
 
   print('Testing remove_duplicates(): ')
