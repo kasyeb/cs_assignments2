@@ -300,7 +300,7 @@ def main():
   for i in range(20):
     testLinkedList1.insert_first(i)
 
-  print('Created new Linked List and insert_first integers from 0-19 in the list: ')
+  print('Testing insert_first() and __str__(): ')
   print('Printing Linked List')
   print(testLinkedList1)
 
@@ -312,40 +312,158 @@ def main():
   for i in range(20):
     testLinkedList2.insert_last(i)
 
-  print('Created new Linked List and insert_last integers from 0-19 in the list: ')
+  print('Testing insert_last(): ')
   print('Printing Linked List')
   print(testLinkedList2)
+
   # Test method insert_in_order()
+  print('')
+  testLinkedList3 = LinkedList()
+  for i in range(20):
+    testLinkedList3.insert_in_order(i)
+
+  print('Testing insert_in_order(): ')
+  print('Printing Linked List')
+  print(testLinkedList3)
+
 
   # Test method get_num_links()
+  print('')
+  print('Testing get_num_links on testLinkedList1: ')
+  print('Printing testLinkedList1.get_num_links()')
+  print(testLinkedList1.get_num_links())
 
   # Test method find_unordered()
   # Consider two cases - data is there, data is not there
+  print('')
+  print('Testing find_unordered on testLinkedList1 if data is there: ')
+  print('Printing testLinkedList1.find_unordered(10) != None')
+  print(testLinkedList1.find_unordered(10))
+
+  print('Testing find_unordered on testLinkedList1 if data is not there: ')
+  print('Printing testLinkedList1.find_unordered(25) != None')
+  print(testLinkedList1.find_unordered(25))
 
   # Test method find_ordered()
   # Consider two cases - data is there, data is not there
+  print('Testing find_ordered on testLinkedList1 if data is there: ')
+  print('Printing testLinkedList1.find_ordered(10) != None')
+  print(testLinkedList1.find_ordered(10))
+
+  print('Testing find_unordered on testLinkedList1 if data is not there: ')
+  print('Printing testLinkedList1.find_unordered(25) != None')
+  print(testLinkedList1.find_unordered(25))
 
   # Test method delete_link()
   # Consider two cases - data is there, data is not there
+  print('')
+  print('Testing delete_link() on testLinkedList1 if data is there: ')
+  print('Printing testLinkedList1.delete_link(10)')
+  print(testLinkedList1.delete_link(10))
+
+  print('Testing delete_link on testLinkedList1 if data is not there: ')
+  print('Printing testLinkedList1.delete_link(25)')
+  print(testLinkedList1.delete_link(25))
 
   # Test method copy_list()
+  print('')
+  print('Testing copy_list() on testLinkedList1: ')
+  print('Original list (testLinkedList1)')
+  print(testLinkedList1)
+
+  print('Copied list using copy_list')
+  print(testLinkedList1.copy_list())
 
   # Test method reverse_list()
+  print('')
+  print('Testing reverse_list() on testLinkedList1: ')
+  print('Original list (testLinkedList1)')
+  print(testLinkedList1)
+  print('Reversed testLinkedList1')
+  print(testLinkedList1.reverse_list())
 
   # Test method sort_list()
+  print('')
+  testLinkedList4 = LinkedList()
+  for i in range(20):
+    randNum = random.randint(0,19)
+    testLinkedList4.insert_last(randNum)
+
+  print('Testing sort_list() on testLinkedList4: ')
+  print('Original list (not sorted)')
+  print(testLinkedList4)
+  print('Sorted list')
+  print(testLinkedList4.sort_list())
 
   # Test method is_sorted()
   # Consider two cases - list is sorted, list is not sorted
+  print('')
+  print('Testing is_sorted() with testLinkedList4 (not sorted) and testLinkedList1 (sorted): ')
+  print('testLinkedList1.is_sorted()')
+  print(testLinkedList1.is_sorted())
+  print('testLinkedList4.is_sorted()')
+  print(testLinkedList4.is_sorted())
 
   # Test method is_empty()
+  print('')
+  print('Testing is_empty() on testLinkedList1 (not empty)')
+  print(testLinkedList1.is_empty())
 
   # Test method merge_list()
+  print('')
+  testLinkedList5 = LinkedList()
+  testLinkedList6 = LinkedList()
+
+  for i in range(10):
+    randNum = random.randint(0,10)
+    testLinkedList5.insert_last(randNum)
+
+  for j in range(10):
+    randNum = random.randInt(0,10)
+    testLinkedList6.insert_last(randNum)
+
+  print('Testing merge_list() with testLinkedList5 and testLinkedList6: ')
+  print('testLinkedList5')
+  print(testLinkedList5)
+  print('testLinkedList6')
+  print(testLinkedList6)
+  print('Merging both lists')
+  print(testLinkedList5.merge_list(testLinkedList6))
 
   # Test method is_equal()
   # Consider two cases - lists are equal, lists are not equal
+  print('')
+  print('Testing is_equal() with two lists: ')
+  testLinkedList7 = LinkedList()
+  testLinkedList8 = LinkedList()
+  testLinkedList9 = LinkedList()
+
+  for i in range(10):
+    testLinkedList7.insert_last(i)
+
+  for j in range(10):
+    testLinkedList8.insert_last(j)
+
+  for k in range(115):
+    testLinkedList9.insert_last(k)
+
+  print('Testing if testLinkedList7 and testLinkedList8 are equal (true)')
+  print(testLinkedList7.is_equal(testLinkedList8))
+  print('Testing is testLinkedList7 and testLinkedList8 are equal (false)')
+  print(testLinkedList7.is_equal(testLinkedList9))
 
   # Test remove_duplicates()
+  print('')
+  testLinkedList10 = LinkedList()
+  for i in range(20):
+    randNum = randint(0,5)
+    testLinkedList10.insert_last(randNum)
 
+  print('Testing remove_duplicates(): ')
+  print('Orignal list')
+  print(testLinkedList10)
+  print('List after removing duplicates')
+  print(testLinkedList10.remove_duplicates())
 
 
 if __name__ == "__main__":
