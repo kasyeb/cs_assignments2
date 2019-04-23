@@ -14,7 +14,7 @@
 
 #  Date Last Modified:
 
-
+# Node class
 class Node(object):
   def __init__(self, data):
     self.data = data
@@ -24,7 +24,7 @@ class Node(object):
   def __str__(self):
     return str(self.data)
 
-
+# Tree class
 class Tree (object):
   # the init() function creates the binary search tree with the
   # encryption string. If the encryption string contains any
@@ -33,9 +33,11 @@ class Tree (object):
   def __init__(self, encrypt_str):
     self.root = None
 
+    # make set to store all letters
     charSet = set('abcdefghijklmnopqrstuvwxyz')
     encrypt_str = encrypt_str.lower()
 
+    # iterate each item check if it meets conditions listed
     for char in encrypt_str:
       if char in charSet or char == ' ':
         self.insert(char)
@@ -51,12 +53,14 @@ class Tree (object):
     if (ch in charSet or ch == ' '):
       newNode = Node(ch)
 
+    # base condition to see if empty
     if (self.root == None):
       self.root = newNode
 
     current = self.root
     parent = self.root
 
+    # iterate through binary tree to check if slot open
     while (current != None):
       parent = current
       if (ch < current.data):
@@ -78,9 +82,11 @@ class Tree (object):
     emptyStr = ''
     current = self.root
 
+    # see if it matches root
     if (current.data == ch):
       emptyStr += '*'
 
+    # iterate through looking for data
     while (current.data != ch) and (current.data != None):
       if (ch < current.data):
         emptyStr += '<'
@@ -98,6 +104,7 @@ class Tree (object):
   def traverse(self, st):
     current = self.root
 
+    # iterate through and compare you can iterate through children properly
     for i in st:
       if (current == None):
         return ''
@@ -118,6 +125,7 @@ class Tree (object):
     st = st.lower()
     charSet = set('abcdefghijklmnopqrstuvwxyz')
 
+    # use set and iterate through all the items and encrypt the data
     for i in st:
       if (i in charSet or i == ' '):
         item = self.search(i)
@@ -131,6 +139,7 @@ class Tree (object):
     emptyStr = ''
     st = st.split('!')
 
+    # iterate through and find the value (traversing) and decrpt
     for i in st:
       emptyStr += self.traverse(i)
 
