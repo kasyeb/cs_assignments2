@@ -1,5 +1,6 @@
 class Node (object):
-  ...
+  self.leftChild = None
+  self.RightChild = None
 
 class Tree (object):
   # Returns the height of the tree
