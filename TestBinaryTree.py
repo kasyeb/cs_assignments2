@@ -1,4 +1,3 @@
-#  File: TestBinaryTree.py
 
 #  Description: Testing binary tree functionality
 
