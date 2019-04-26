@@ -1,4 +1,21 @@
+#  File: TestBinaryTree.py
+
+#  Description: Testing binary tree functionality
+
+#  Student Name: Vinayak Sahal
+
+#  Student UT EID: vs9736
+
+#  Course Name: CS 313E
+
+#  Unique Number: 50725
+
+#  Date Created: 4/23/2019
+
+#  Date Last Modified:
+
 class Node (object):
+  self.data = None
   self.leftChild = None
   self.RightChild = None
 
